@@ -1,0 +1,35 @@
+default_props.conf.sample
+- Default configurations of the props.conf. Typically used in all-in-one standalone Splunk instances or Splunk search heads.
+
+default_transforms.conf.sample		
+- Default configurations of the transforms.conf. Typically used in all-in-one standalone Splunk instances or Splunk search heads.
+
+full_props.conf.sample
+- Full detailed references of the props.conf. Typically used in all-in-one standalone Splunk instances.
+
+full_transforms.conf.sample		
+- Full detailed references of the transforms.conf. Typically used in all-in-one standalone Splunk instances.
+
+hf_props.conf.sample			
+- Sample of the props.conf when deploying on the Splunk heavy forwarders or indexer nodes.
+
+hf_transforms.conf.sample		
+- Sample of the transforms.conf when deploying on the Splunk heavy forwarders or indexer nodes.
+
+sh1_transforms.conf.sample		
+- Sample of the transforms.conf when deploying on the Splunk search heads and index time source renaming function is not required. Compatible with SQL Audit Action group logs in CEF formats.
+
+sh2_transforms.conf.sample		
+- Sample of the transforms.conf when deploying on the Splunk search heads and index time source renaming function is not required. Incompatible with SQL Audit Action group logs in CEF formats.
+
+sh1_props.conf.sample			
+- Sample of the props.conf when deploying on the Splunk search heads and index time source renaming function is not required. Field extractions by log sourcetype names.
+
+sh2_props.conf.sample			
+- Sample of the props.conf when deploying on the Splunk search heads and index time source renaming function is not required. Field extractions by log source names.
+
+sh3_props.conf.sample			
+- Sample of the props.conf when deploying on the Splunk search heads and index time source renaming function is not required. Field extractions by hostnames.
+
+sh4_props.conf.sample			
+- Sample of the props.conf when deploying on the Splunk search heads and index time source renaming function is not required. Field extractions by rules.

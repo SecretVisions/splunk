@@ -1,0 +1,134 @@
+{
+    "modelName": "Sample_CEF_Logs",
+    "displayName": "Sample CEF Logs",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 1
+    },
+    "objects": [
+        {
+            "objectName": "Sample_CEF_Log_Search",
+            "displayName": "Sample CEF Log Search",
+            "parentName": "BaseSearch",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "timestamp",
+                    "fieldSearch": "_time=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dvc_product",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dvc_product",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dvc_vendor",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dvc_vendor",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dvc_version",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dvc_version",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "name",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "name",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "severity",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "signature_id",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature_id",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "syslog_host",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "syslog_host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "version",
+                    "owner": "Sample_CEF_Log_Search",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "version",
+                    "comment": ""
+                }
+            ],
+            "calculations": [],
+            "constraints": [],
+            "lineage": "Sample_CEF_Log_Search",
+            "baseSearch": "| datamodel ArcSight_CEF ArcSight_CEF_Fields search | rename ArcSight_CEF_Fields.* AS *"
+        }
+    ],
+    "objectNameList": [
+        "Sample_CEF_Log_Search"
+    ]
+}

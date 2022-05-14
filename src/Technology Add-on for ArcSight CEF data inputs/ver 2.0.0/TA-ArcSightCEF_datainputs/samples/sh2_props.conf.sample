@@ -1,0 +1,428 @@
+#
+# The main part of the field extractions/transforms and data normalizations.
+#
+# replace <log_source_name_x> with the real log source names
+[source::(<log_source_name_1>|<log_source_name_2>|...|<log_source_name_x>)]
+
+# Disable automatically field extractions, key-value pairing and line merges
+KV_MODE = none
+AUTO_KV_JSON = false
+SHOULD_LINEMERGE = false
+
+#
+# The following sections perform the field transformations/extractions of the key names of the CEF fields.
+#
+REPORT-0_MESSAGE = cef_header_fields,cef_extended_fields_producers_1,cef_extended_fields_producers_2,cef_extended_fields_producers_3,cef_extended_fields_consumers_1,cef_extended_fields_consumers_2
+REPORT-1_EXTRACT = cef_extended_fields_extract_1,cef_extended_fields_extract_2,cef_extended_fields_extract_3
+
+#
+# Field Alias
+#
+FIELDALIAS-signature_Id = deviceEventClassId AS signature_id
+
+# 
+# The configurations in the following sections are the optional. They will create the field alias from
+#   the key names of CEF fields and provides the full names of the CEF fields. Enable them ONLY when they
+#   they are needed.
+#
+# FIELDALIAS-deviceAction = act AS deviceAction
+# FIELDALIAS-applicationProtocol = app AS applicationProtocol
+# FIELDALIAS-deviceCustomIPv6Address1 = c6a1 AS deviceCustomIPv6Address1
+# FIELDALIAS-deviceCustomIPv6Address1Label = c6a1Label AS deviceCustomIPv6Address1Label
+# FIELDALIAS-deviceCustomIPv6Address2 = c6a2 AS deviceCustomIPv6Address2 
+# FIELDALIAS-deviceCustomIPv6Address2Label = c6a2Label AS deviceCustomIPv6Address2Label
+# FIELDALIAS-deviceCustomIPv6Address3 = c6a3 AS deviceCustomIPv6Address3
+# FIELDALIAS-deviceCustomIPv6Address3Label = c6a3Label AS deviceCustomIPv6Address3Label
+# FIELDALIAS-deviceCustomIPv6Address4 = c6a4 AS deviceCustomIPv6Address4
+# FIELDALIAS-deviceCustomIPv6Address4Label = c6a4Label AS deviceCustomIPv6Address4Label
+# FIELDALIAS-deviceEventCategory = cat AS deviceEventCategory
+# FIELDALIAS-deviceCustomFloatingPoint1 = cfp1 AS deviceCustomFloatingPoint1
+# FIELDALIAS-deviceCustomFloatingPoint1Label = cfp1Label AS deviceCustomFloatingPoint1Label
+# FIELDALIAS-deviceCustomFloatingPoint2 = cfp2 AS deviceCustomFloatingPoint2
+# FIELDALIAS-deviceCustomFloatingPoint2Label = cfp2Label AS deviceCustomFloatingPoint2Label
+# FIELDALIAS-deviceCustomFloatingPoint3 = cfp3 AS deviceCustomFloatingPoint3
+# FIELDALIAS-deviceCustomFloatingPoint3Label = cfp3Label AS deviceCustomFloatingPoint3Label
+# FIELDALIAS-deviceCustomFloatingPoint4 = cfp4 AS deviceCustomFloatingPoint4
+# FIELDALIAS-deviceCustomFloatingPoint4Label = cfp4Label AS deviceCustomFloatingPoint4Label
+# FIELDALIAS-deviceCustomNumber1 = cn1 AS deviceCustomNumber1
+# FIELDALIAS-deviceCustomNumber1Label = cn1Label AS deviceCustomNumber1Label
+# FIELDALIAS-deviceCustomNumber2 = cn2 AS deviceCustomNumber2
+# FIELDALIAS-deviceCustomNumber2Label = cn2Label AS deviceCustomNumber2Label
+# FIELDALIAS-deviceCustomNumber3 = cn3 AS deviceCustomNumber3
+# FIELDALIAS-deviceCustomNumber3Label = cn3Label AS deviceCustomNumber3Label
+# FIELDALIAS-baseEventCount = cnt AS baseEventCount
+# FIELDALIAS-deviceCustomString1 = cs1 AS deviceCustomString1
+# FIELDALIAS-deviceCustomString1Label = cs1Label AS deviceCustomString1Label
+# FIELDALIAS-deviceCustomString2 = cs2 AS deviceCustomString2
+# FIELDALIAS-deviceCustomString2Label = cs2Label AS deviceCustomString2Label
+# FIELDALIAS-deviceCustomString3 = cs3 AS deviceCustomString3
+# FIELDALIAS-deviceCustomString3Label = cs3Label AS deviceCustomString3Label
+# FIELDALIAS-deviceCustomString4 = cs4 AS deviceCustomString4
+# FIELDALIAS-deviceCustomString4Label = cs4Label AS deviceCustomString4Label
+# FIELDALIAS-deviceCustomString5 = cs5 AS deviceCustomString5
+# FIELDALIAS-deviceCustomString5Label = cs5Label AS deviceCustomString5Label
+# FIELDALIAS-deviceCustomString6 = cs6 AS deviceCustomString6
+# FIELDALIAS-deviceCustomString6Label = cs6Label AS deviceCustomString6Label
+# FIELDALIAS-destinationHostName = dhost AS destinationHostName
+# FIELDALIAS-destinationMacAddress = dmac AS destinationMacAddress
+# FIELDALIAS-destinationNtDomain = dntdom AS destinationNtDomain
+# FIELDALIAS-destinationProcessId = dpid AS destinationProcessId
+# FIELDALIAS-destinationUserPrivileges = dpriv AS destinationUserPrivileges
+# FIELDALIAS-destinationProcessName = dproc AS destinationProcessName
+# FIELDALIAS-destinationPort = dpt AS destinationPort
+# FIELDALIAS-destinationAddress = dst AS destinationAddress
+# FIELDALIAS-deviceTimeZone = dtz AS deviceTimeZone
+# FIELDALIAS-destinationUserId = duid AS destinationUserId
+# FIELDALIAS-destinationUserName = duser AS destinationUserName
+# FIELDALIAS-deviceAddress = dvc AS deviceAddress
+# FIELDALIAS-deviceHostName = dvchost AS deviceHostName
+# FIELDALIAS-deviceMacAddress = dvcmac AS deviceMacAddress
+# FIELDALIAS-deviceProcessId = dvcpid AS deviceProcessId
+# FIELDALIAS-endTime = end AS endTime 
+# FIELDALIAS-filename = fname AS filename
+# FIELDALIAS-fsize = fileSize AS fileSize
+# FIELDALIAS-bytesIn = in AS bytesIn
+# FIELDALIAS-message = msg AS message
+# FIELDALIAS-bytesOut = out AS bytesOut
+# FIELDALIAS-eventOutcome = outcome AS eventOutcome
+# FIELDALIAS-transportProtocol = proto AS transportProtocol
+# FIELDALIAS-Reason = reason AS Reason
+# FIELDALIAS-requestUrl = request AS requestUrl
+# FIELDALIAS-deviceReceiptTime = rt AS deviceReceiptTime
+# FIELDALIAS-sourceHostName = shost AS sourceHostName
+# FIELDALIAS-sourceMacAddress = smac AS sourceMacAddress
+# FIELDALIAS-sourceNtDomain = sntdom AS sourceNtDomain
+# FIELDALIAS-sourceProcessId = spid AS sourceProcessId
+# FIELDALIAS-sourceUserPrivileges = spriv AS sourceUserPrivileges
+# FIELDALIAS-sourceProcessName = sproc AS sourceProcessName
+# FIELDALIAS-sourcePort = spt AS sourcePort
+# FIELDALIAS-sourceAddress = src AS sourceAddress
+# FIELDALIAS-startTime = start AS startTime
+# FIELDALIAS-sourceUserId = suid AS sourceUserId
+# FIELDALIAS-sourceUserName = suser AS sourceUserName
+# FIELDALIAS-agentAddress = agt AS agentAddress
+# FIELDALIAS-agentHostName = ahost AS agentHostName
+# FIELDALIAS-agentId = aid AS agentId
+# FIELDALIAS-agentMacAddress = amac AS agentMacAddress
+# FIELDALIAS-agentReceiptTime = art AS agentReceiptTime
+# FIELDALIAS-agentType = at AS agentType
+# FIELDALIAS-agentTimeZone = atz AS agentTimeZone
+# FIELDALIAS-agentVersion = av AS agentVersion
+# FIELDALIAS-destinationGeoLatitude = dlat AS destinationGeoLatitude
+# FIELDALIAS-destinationGeoLongitude = dlong AS destinationGeoLongitude
+# FIELDALIAS-sourceGeoLatitude = slat AS sourceGeoLatitude
+# FIELDALIAS-sourceGeoLongitude = slong AS sourceGeoLongitude
+
+#
+# The configurations in the following sections are optional. They are designed 
+#     to create the field aliases with the additional perfix "cef_" to distinguish
+#     from the raw field names. 
+#
+
+#
+# CEF Header Fields
+#
+# FIELDALIAS-cef_version = version AS cef_version
+# FIELDALIAS-cef_dvc_vendor = dvc_vendor AS cef_dvc_vendor
+# FIELDALIAS-cef_dvc_product = dvc_product AS cef_dvc_product
+# FIELDALIAS-cef_dvc_version = dvc_version AS cef_dvc_version
+# FIELDALIAS-cef_name = name AS cef_name
+# FIELDALIAS-cef_severity = severity AS cef_severity
+# FIELDALIAS-cef_deviceEventClassId = deviceEventClassId AS cef_deviceEventClassId
+# FIELDALIAS-cef_signature_Id = deviceEventClassId AS cef_signature_id
+
+#
+# CEF Extension Fields - Event Consumers
+#
+# FIELDALIAS-cef_agentDnsDomain = agentDnsDomain AS cef_agentDnsDomain
+# FIELDALIAS-cef_agentNtDomain = agentNtDomain AS cef_agentNtDomain
+# FIELDALIAS-cef_agentTranslatedAddress = agentTranslatedAddress AS cef_agentTranslatedAddress
+# FIELDALIAS-cef_agentTranslatedZoneExternalID = agentTranslatedZoneExternalID AS cef_agentTranslatedZoneExternalID
+# FIELDALIAS-cef_agentTranslatedZoneURI = agentTranslatedZoneURI AS cef_agentTranslatedZoneURI
+# FIELDALIAS-cef_agentZoneExternalID = agentZoneExternalID AS cef_agentZoneExternalID
+# FIELDALIAS-cef_agentZoneURI = agentZoneURI AS cef_agentZoneURI
+# FIELDALIAS-cef_agt = agt AS cef_agt
+# FIELDALIAS-cef_ahost = ahost AS cef_ahost
+# FIELDALIAS-cef_aid = aid AS cef_aid
+# FIELDALIAS-cef_amac = amac AS cef_amac
+# FIELDALIAS-cef_art = art AS cef_art
+# FIELDALIAS-cef_at = at AS cef_at
+# FIELDALIAS-cef_atz = atz AS cef_atz
+# FIELDALIAS-cef_av = av AS cef_av
+# FIELDALIAS-cef_cat = cat AS cef_cat
+# FIELDALIAS-cef_customerExternalID = customerExternalID AS cef_customerExternalID
+# FIELDALIAS-cef_customerURI = customerURI AS cef_customerURI
+# FIELDALIAS-cef_destinationTranslatedZoneExternalID = destinationTranslatedZoneExternalID AS cef_destinationTranslatedZoneExternalID
+# FIELDALIAS-cef_destinationTranslatedZoneURI = destinationTranslatedZoneURI AS cef_destinationTranslatedZoneURI
+# FIELDALIAS-cef_destinationZoneExternalID = destinationZoneExternalID AS cef_destinationZoneExternalID
+# FIELDALIAS-cef_destinationZoneURI = destinationZoneURI AS cef_destinationZoneURI
+# FIELDALIAS-cef_deviceTranslatedZoneExternalID = deviceTranslatedZoneExternalID AS cef_deviceTranslatedZoneExternalID
+# FIELDALIAS-cef_deviceTranslatedZoneURI = deviceTranslatedZoneURI AS cef_deviceTranslatedZoneURI
+# FIELDALIAS-cef_deviceZoneExternalID = deviceZoneExternalID AS cef_deviceZoneExternalID
+# FIELDALIAS-cef_deviceZoneURI = deviceZoneURI AS cef_deviceZoneURI
+# FIELDALIAS-cef_dlat = dlat AS cef_dlat
+# FIELDALIAS-cef_dlong = dlong AS cef_dlong
+# FIELDALIAS-cef_eventId = eventId AS cef_eventId
+# FIELDALIAS-cef_rawEvent = rawEvent AS cef_rawEvent
+# FIELDALIAS-cef_slat = slat AS cef_slat
+# FIELDALIAS-cef_slong = slong AS cef_slong
+# FIELDALIAS-cef_sourceTranslatedZoneExternalID = sourceTranslatedZoneExternalID AS cef_sourceTranslatedZoneExternalID
+# FIELDALIAS-cef_sourceTranslatedZoneURI = sourceTranslatedZoneURI AS cef_sourceTranslatedZoneURI
+# FIELDALIAS-cef_sourceZoneExternalID = sourceZoneExternalID AS cef_sourceZoneExternalID
+# FIELDALIAS-cef_sourceZoneURI = sourceZoneURI AS cef_sourceZoneURI 
+
+#
+# ArcSight Extension Fields - CEF Key Names for Event Producers
+#
+# FIELDALIAS-cef_act = act AS cef_act
+# FIELDALIAS-cef_app = app AS cef_app
+# FIELDALIAS-cef_c6a1 = c6a1 AS cef_c6a1
+# FIELDALIAS-cef_c6a1Label = c6a1Label AS cef_c6a1Label
+# FIELDALIAS-cef_c6a2 = c6a2 AS cef_c6a2 
+# FIELDALIAS-cef_c6a2Label = c6a2Label AS cef_c6a2Label
+# FIELDALIAS-cef_c6a3 = c6a3 AS cef_c6a3
+# FIELDALIAS-cef_c6a3Label = c6a3Label AS cef_c6a3Label
+# FIELDALIAS-cef_c6a4 = c6a4 AS cef_c6a4
+# FIELDALIAS-cef_c6a4Label = c6a4Label AS cef_c6a4Label
+# FIELDALIAS-cef_cfp1 = cfp1 AS cef_cfp1
+# FIELDALIAS-cef_cfp1Label = cfp1Label AS cef_cfp1Label
+# FIELDALIAS-cef_cfp2 = cfp2 AS cef_cfp2
+# FIELDALIAS-cef_cfp2Label = cfp2Label AS cef_cfp2Label
+# FIELDALIAS-cef_cfp3 = cfp3 AS cef_cfp3
+# FIELDALIAS-cef_cfp3Label = cfp3Label AS cef_cfp3Label
+# FIELDALIAS-cef_cfp4 = cfp4 AS cef_cfp4
+# FIELDALIAS-cef_cfp4Label = cfp4Label AS cef_cfp4Label
+# FIELDALIAS-cef_cn1 = cn1 AS cef_cn1
+# FIELDALIAS-cef_cn1Label = cn1Label AS cef_cn1Label
+# FIELDALIAS-cef_cn2 = cn2 AS cef_cn2
+# FIELDALIAS-cef_cn2Label = cn2Label AS cef_cn2Label
+# FIELDALIAS-cef_cn3 = cn3 AS cef_cn3
+# FIELDALIAS-cef_cn3Label = cn3Label AS cef_cn3Label
+# FIELDALIAS-cef_cnt = cnt AS cef_cnt
+# FIELDALIAS-cef_cs1 = cs1 AS cef_cs1
+# FIELDALIAS-cef_cs1Label = cs1Label AS cef_cs1Label
+# FIELDALIAS-cef_cs2 = cs2 AS cef_cs2
+# FIELDALIAS-cef_cs2Label = cs2Label AS cef_cs2Label
+# FIELDALIAS-cef_cs3 = cs3 AS cef_cs3
+# FIELDALIAS-cef_cs3Label = cs3Label AS cef_cs3Label
+# FIELDALIAS-cef_cs4 = cs4 AS cef_cs4
+# FIELDALIAS-cef_cs4Label = cs4Label AS cef_cs4Label
+# FIELDALIAS-cef_cs5 = cs5 AS cef_cs5
+# FIELDALIAS-cef_cs5Label = cs5Label AS cef_cs5Label
+# FIELDALIAS-cef_cs6 = cs6 AS cef_cs6
+# FIELDALIAS-cef_cs6Label = cs6Label AS cef_cs6Label
+# FIELDALIAS-cef_destinationDnsDomain = destinationDnsDomain AS cef_destinationDnsDomain
+# FIELDALIAS-cef_destinationServiceName = destinationServiceName AS cef_destinationServiceName
+# FIELDALIAS-cef_destinationTranslatedAddress = destinationTranslatedAddress AS cef_destinationTranslatedAddress 
+# FIELDALIAS-cef_destinationTranslatedPort = destinationTranslatedPort AS cef_destinationTranslatedPort
+# FIELDALIAS-cef_deviceCustomDate1 = deviceCustomDate1 AS cef_deviceCustomDate1
+# FIELDALIAS-cef_deviceCustomDate1Label = deviceCustomDate1Label AS cef_deviceCustomDate1Label
+# FIELDALIAS-cef_deviceCustomDate2 = deviceCustomDate2 AS cef_deviceCustomDate2
+# FIELDALIAS-cef_deviceCustomDate2Label = deviceCustomDate2Label AS cef_deviceCustomDate2Label
+# FIELDALIAS-cef_deviceDirection = deviceDirection AS cef_deviceDirection
+# FIELDALIAS-cef_deviceDnsDomain = deviceDnsDomain AS cef_deviceDnsDomain
+# FIELDALIAS-cef_deviceExternalId = deviceExternalId AS cef_deviceExternalId
+# FIELDALIAS-cef_deviceFacility = deviceFacility AS cef_deviceFacility
+# FIELDALIAS-cef_deviceInboundInterface = deviceInboundInterface AS cef_deviceInboundInterface
+# FIELDALIAS-cef_deviceNtDomain = deviceNtDomain AS cef_deviceNtDomain
+# FIELDALIAS-cef_deviceOutboundInterface = deviceOutboundInterface AS cef_deviceOutboundInterface
+# FIELDALIAS-cef_devicePayloadId = devicePayloadId AS cef_devicePayloadId
+# FIELDALIAS-cef_deviceProcessName = deviceProcessName AS cef_deviceProcessName
+# FIELDALIAS-cef_deviceTranslatedAddress = deviceTranslatedAddress AS cef_deviceTranslatedAddress
+# FIELDALIAS-cef_dhost = dhost AS cef_dhost
+# FIELDALIAS-cef_dmac = dmac AS cef_dmac
+# FIELDALIAS-cef_dntdom = dntdom AS cef_dntdom
+# FIELDALIAS-cef_dpid = dpid AS cef_dpid
+# FIELDALIAS-cef_dpriv = dpriv AS cef_dpriv
+# FIELDALIAS-cef_dproc = dproc AS cef_dproc
+# FIELDALIAS-cef_dpt = dpt AS cef_dpt
+# FIELDALIAS-cef_dst = dst AS cef_dst
+# FIELDALIAS-cef_dtz = dtz AS cef_dtz
+# FIELDALIAS-cef_duid = duid AS cef_duid
+# FIELDALIAS-cef_duser = duser AS cef_duser
+# FIELDALIAS-cef_dvc = dvc AS cef_dvc
+# FIELDALIAS-cef_dvchost = dvchost AS cef_dvchost
+# FIELDALIAS-cef_dvcmac = dvcmac AS cef_dvcmac
+# FIELDALIAS-cef_dvcpid = dvcpid AS cef_dvcpid
+# FIELDALIAS-cef_end = end AS cef_end 
+# FIELDALIAS-cef_externalId = externalId AS cef_externalId
+# FIELDALIAS-cef_fileCreateTime = fileCreateTime AS cef_fileCreateTime
+# FIELDALIAS-cef_fileHash = fileHash AS cef_fileHash
+# FIELDALIAS-cef_fileId = fileId AS cef_fileId
+# FIELDALIAS-cef_fileModificationTime = fileModificationTime AS cef_fileModificationTime
+# FIELDALIAS-cef_filePath = filePath AS cef_filePath
+# FIELDALIAS-cef_filePermission = filePermission AS cef_filePermission
+# FIELDALIAS-cef_fileType = fileType AS cef_fileType
+# FIELDALIAS-cef_flexDate1 = flexDate1 AS cef_flexDate1
+# FIELDALIAS-cef_flexDate1Label = flexDate1Label AS cef_flexDate1Label
+# FIELDALIAS-cef_flexDate2 = flexDate2 AS cef_flexDate2
+# FIELDALIAS-cef_flexDate2Label = flexDate2Label AS cef_flexDate2Label 
+# FIELDALIAS-cef_flexString1 = flexString1 AS cef_flexString1
+# FIELDALIAS-cef_flexString1Label = flexString1Label AS cef_flexString1Label
+# FIELDALIAS-cef_flexString2 = flexString2 AS cef_flexString2
+# FIELDALIAS-cef_flexString2Label = flexString2Label AS cef_flexString2Label
+# FIELDALIAS-cef_fname = fname AS cef_fname
+# FIELDALIAS-cef_fsize = fsize AS cef_fsize
+# FIELDALIAS-cef_in = in AS cef_in
+# FIELDALIAS-cef_msg = msg AS cef_msg
+# FIELDALIAS-cef_oldFileCreateTime = oldFileCreateTime AS cef_oldFileCreateTime
+# FIELDALIAS-cef_oldFileHash = oldFileHash AS cef_oldFileHash
+# FIELDALIAS-cef_oldFileId = oldFileId AS cef_oldFileId
+# FIELDALIAS-cef_oldFileModificationTime = oldFileModificationTime AS cef_oldFileModificationTime
+# FIELDALIAS-cef_oldFileName = oldFileName AS cef_oldFileName
+# FIELDALIAS-cef_oldFilePath = oldFilePath AS cef_oldFilePath
+# FIELDALIAS-cef_oldFilePermission = oldFilePermission AS cef_oldFilePermission
+# FIELDALIAS-cef_oldFileSize = oldFileSize AS cef_oldFileSize
+# FIELDALIAS-cef_oldFileType = oldFileType AS cef_oldFileType 
+# FIELDALIAS-cef_out = out AS cef_out
+# FIELDALIAS-cef_outcome = outcome AS cef_outcome
+# FIELDALIAS-cef_proto = proto AS cef_proto
+# FIELDALIAS-cef_reason = reason AS cef_reason
+# FIELDALIAS-cef_request = request AS cef_request
+# FIELDALIAS-cef_requestClientApplication = requestClientApplication AS cef_requestClientApplication
+# FIELDALIAS-cef_requestContext = requestContext AS cef_requestContext
+# FIELDALIAS-cef_requestCookies = requestCookies AS cef_requestCookies
+# FIELDALIAS-cef_requestMethod = requestMethod AS cef_requestMethod
+# FIELDALIAS-cef_rt = rt AS cef_rt
+# FIELDALIAS-cef_shost = shost AS cef_shost
+# FIELDALIAS-cef_smac = smac AS cef_smac
+# FIELDALIAS-cef_sntdom = sntdom AS cef_sntdom
+# FIELDALIAS-cef_sourceDnsDomain = sourceDnsDomain AS cef_sourceDnsDomain
+# FIELDALIAS-cef_sourceServiceName = sourceServiceName AS cef_sourceServiceName
+# FIELDALIAS-cef_sourceTranslatedAddress = sourceTranslatedAddress AS cef_sourceTranslatedAddress
+# FIELDALIAS-cef_sourceTranslatedPort = sourceTranslatedPort AS cef_sourceTranslatedPort
+# FIELDALIAS-cef_spid = spid AS cef_spid
+# FIELDALIAS-cef_spriv = spriv AS cef_spriv
+# FIELDALIAS-cef_sproc = sproc AS cef_sproc
+# FIELDALIAS-cef_spt = spt AS cef_spt
+# FIELDALIAS-cef_src = src AS cef_src
+# FIELDALIAS-cef_start = start AS cef_start
+# FIELDALIAS-cef_suid = suid AS cef_suid
+# FIELDALIAS-cef_suser = suser AS cef_suser
+# FIELDALIAS-cef_type = type AS cef_type
+
+#
+#  Notes: The following sections are the optional. Enable them when you need the full names of the CEF fields
+#
+# FIELDALIAS-cef_deviceAction = act AS cef_deviceAction
+# FIELDALIAS-cef_applicationProtocol = app AS cef_applicationProtocol
+# FIELDALIAS-cef_deviceCustomIPv6Address1 = c6a1 AS cef_deviceCustomIPv6Address1
+# FIELDALIAS-cef_deviceCustomIPv6Address1Label = c6a1Label AS cef_deviceCustomIPv6Address1Label
+# FIELDALIAS-cef_deviceCustomIPv6Address2 = c6a2 AS cef_deviceCustomIPv6Address2 
+# FIELDALIAS-cef_deviceCustomIPv6Address2Label = c6a2Label AS cef_deviceCustomIPv6Address2Label
+# FIELDALIAS-cef_deviceCustomIPv6Address3 = c6a3 AS cef_deviceCustomIPv6Address3
+# FIELDALIAS-cef_deviceCustomIPv6Address3Label = c6a3Label AS cef_deviceCustomIPv6Address3Label
+# FIELDALIAS-cef_deviceCustomIPv6Address4 = c6a4 AS cef_deviceCustomIPv6Address4
+# FIELDALIAS-cef_deviceCustomIPv6Address4Label = c6a4Label AS cef_deviceCustomIPv6Address4Label
+# FIELDALIAS-cef_deviceEventCategory = cat AS cef_deviceEventCategory
+# FIELDALIAS-cef_deviceCustomFloatingPoint1 = cfp1 AS cef_deviceCustomFloatingPoint1
+# FIELDALIAS-cef_deviceCustomFloatingPoint1Label = cfp1Label AS cef_deviceCustomFloatingPoint1Label
+# FIELDALIAS-cef_deviceCustomFloatingPoint2 = cfp2 AS cef_deviceCustomFloatingPoint2
+# FIELDALIAS-cef_deviceCustomFloatingPoint2Label = cfp2Label AS cef_deviceCustomFloatingPoint2Label
+# FIELDALIAS-cef_deviceCustomFloatingPoint3 = cfp3 AS cef_deviceCustomFloatingPoint3
+# FIELDALIAS-cef_deviceCustomFloatingPoint3Label = cfp3Label AS cef_deviceCustomFloatingPoint3Label
+# FIELDALIAS-cef_deviceCustomFloatingPoint4 = cfp4 AS cef_deviceCustomFloatingPoint4
+# FIELDALIAS-cef_deviceCustomFloatingPoint4Label = cfp4Label AS cef_deviceCustomFloatingPoint4Label
+# FIELDALIAS-cef_deviceCustomNumber1 = cn1 AS cef_deviceCustomNumber1
+# FIELDALIAS-cef_deviceCustomNumber1Label = cn1Label AS cef_deviceCustomNumber1Label
+# FIELDALIAS-cef_deviceCustomNumber2 = cn2 AS cef_deviceCustomNumber2
+# FIELDALIAS-cef_deviceCustomNumber2Label = cn2Label AS cef_deviceCustomNumber2Label
+# FIELDALIAS-cef_deviceCustomNumber3 = cn3 AS cef_deviceCustomNumber3
+# FIELDALIAS-cef_deviceCustomNumber3Label = cn3Label AS cef_deviceCustomNumber3Label
+# FIELDALIAS-cef_baseEventCount = cnt AS cef_baseEventCount
+# FIELDALIAS-cef_deviceCustomString1 = cs1 AS cef_deviceCustomString1
+# FIELDALIAS-cef_deviceCustomString1Label = cs1Label AS cef_deviceCustomString1Label
+# FIELDALIAS-cef_deviceCustomString2 = cs2 AS cef_deviceCustomString2
+# FIELDALIAS-cef_deviceCustomString2Label = cs2Label AS cef_deviceCustomString2Label
+# FIELDALIAS-cef_deviceCustomString3 = cs3 AS cef_deviceCustomString3
+# FIELDALIAS-cef_deviceCustomString3Label = cs3Label AS cef_deviceCustomString3Label
+# FIELDALIAS-cef_deviceCustomString4 = cs4 AS cef_deviceCustomString4
+# FIELDALIAS-cef_deviceCustomString4Label = cs4Label AS cef_deviceCustomString4Label
+# FIELDALIAS-cef_deviceCustomString5 = cs5 AS cef_deviceCustomString5
+# FIELDALIAS-cef_deviceCustomString5Label = cs5Label AS cef_deviceCustomString5Label
+# FIELDALIAS-cef_deviceCustomString6 = cs6 AS cef_deviceCustomString6
+# FIELDALIAS-cef_deviceCustomString6Label = cs6Label AS cef_deviceCustomString6Label
+# FIELDALIAS-cef_destinationHostName = dhost AS cef_destinationHostName
+# FIELDALIAS-cef_destinationMacAddress = dmac AS cef_destinationMacAddress
+# FIELDALIAS-cef_destinationNtDomain = dntdom AS cef_destinationNtDomain
+# FIELDALIAS-cef_destinationProcessId = dpid AS cef_destinationProcessId
+# FIELDALIAS-cef_destinationUserPrivileges = dpriv AS cef_destinationUserPrivileges
+# FIELDALIAS-cef_destinationProcessName = dproc AS cef_destinationProcessName
+# FIELDALIAS-cef_destinationPort = dpt AS cef_destinationPort
+# FIELDALIAS-cef_destinationAddress = dst AS cef_destinationAddress
+# FIELDALIAS-cef_deviceTimeZone = dtz AS cef_deviceTimeZone
+# FIELDALIAS-cef_destinationUserId = duid AS cef_destinationUserId
+# FIELDALIAS-cef_destinationUserName = duser AS cef_destinationUserName
+# FIELDALIAS-cef_deviceAddress = dvc AS cef_deviceAddress
+# FIELDALIAS-cef_deviceHostName = dvchost AS cef_deviceHostName
+# FIELDALIAS-cef_deviceMacAddress = dvcmac AS cef_deviceMacAddress
+# FIELDALIAS-cef_deviceProcessId = dvcpid AS cef_deviceProcessId
+# FIELDALIAS-cef_endTime = end AS cef_endTime 
+# FIELDALIAS-cef_filename = fname AS cef_filename
+# FIELDALIAS-cef_fsize = fileSize AS cef_fileSize
+# FIELDALIAS-cef_bytesIn = in AS cef_bytesIn
+# FIELDALIAS-cef_message = msg AS cef_message
+# FIELDALIAS-cef_bytesOut = out AS cef_bytesOut
+# FIELDALIAS-cef_eventOutcome = outcome AS cef_eventOutcome
+# FIELDALIAS-cef_transportProtocol = proto AS cef_transportProtocol
+# FIELDALIAS-cef_Reason = reason AS cef_Reason
+# FIELDALIAS-cef_requestUrl = request AS cef_requestUrl
+# FIELDALIAS-cef_requestClientApplication = requestClientApplication AS cef_requestClientApplication
+# FIELDALIAS-cef_deviceReceiptTime = rt AS cef_deviceReceiptTime
+# FIELDALIAS-cef_sourceHostName = shost AS cef_sourceHostName
+# FIELDALIAS-cef_sourceMacAddress = smac AS cef_sourceMacAddress
+# FIELDALIAS-cef_sourceNtDomain = sntdom AS cef_sourceNtDomain
+# FIELDALIAS-cef_sourceProcessId = spid AS cef_sourceProcessId
+# FIELDALIAS-cef_sourceUserPrivileges = spriv AS cef_sourceUserPrivileges
+# FIELDALIAS-cef_sourceProcessName = sproc AS cef_sourceProcessName
+# FIELDALIAS-cef_sourcePort = spt AS cef_sourcePort
+# FIELDALIAS-cef_sourceAddress = src AS cef_sourceAddress
+# FIELDALIAS-cef_startTime = start AS cef_startTime
+# FIELDALIAS-cef_sourceUserId = suid AS cef_sourceUserId
+# FIELDALIAS-cef_sourceUserName = suser AS cef_sourceUserName
+# FIELDALIAS-cef_agentAddress = agt AS cef_agentAddress
+# FIELDALIAS-cef_agentHostName = ahost AS cef_agentHostName
+# FIELDALIAS-cef_agentId = aid AS cef_agentId
+# FIELDALIAS-cef_agentMacAddress = amac AS cef_agentMacAddress
+# FIELDALIAS-cef_agentReceiptTime = art AS cef_agentReceiptTime
+# FIELDALIAS-cef_agentType = at AS cef_agentType
+# FIELDALIAS-cef_agentTimeZone = atz AS cef_agentTimeZone
+# FIELDALIAS-cef_agentVersion = av AS cef_agentVersion
+# FIELDALIAS-cef_destinationGeoLatitude = dlat AS cef_destinationGeoLatitude
+# FIELDALIAS-cef_destinationGeoLongitude = dlong AS cef_destinationGeoLongitude
+# FIELDALIAS-cef_sourceGeoLatitude = slat AS cef_sourceGeoLatitude
+# FIELDALIAS-cef_sourceGeoLongitude = slong AS cef_sourceGeoLongitude
+
+
+#
+# The following sections are designed to merge the custom field labels with their values
+#     and forms the new fields for special purposes/use cases. Make sure the corresponding
+#     stanzas are available and enabled in the transforms.conf file. As those processes 
+#     are relatively performance intensive, you should enable them ONLY when they are needed.
+#
+# REPORT-11_CustomString1 = cef_custom_string_1a,cef_custom_string_1b
+# REPORT-12_CustomString2 = cef_custom_string_2a,cef_custom_string_2b
+# REPORT-13_CustomString3 = cef_custom_string_3a,cef_custom_string_3b
+# REPORT-14_CustomString4 = cef_custom_string_4a,cef_custom_string_4b
+# REPORT-15_CustomString5 = cef_custom_string_5a,cef_custom_string_5b
+# REPORT-16_CustomString6 = cef_custom_string_6a,cef_custom_string_6b
+# REPORT-17_FlexString1 = cef_custom_flexstring_1a,cef_custom_flexstring_1b
+# REPORT-18_FlexString2 = cef_custom_flexstring_2a,cef_custom_flexstring_2b
+# REPORT-19_FlexString3 = cef_custom_flexstring_3a,cef_custom_flexstring_3b
+# REPORT-20_FlexString4 = cef_custom_flexstring_4a,cef_custom_flexstring_4b
+# REPORT-21_CustomAddress1 = cef_custom_c6address_1a,cef_custom_c6address_1b
+# REPORT-22_CustomAddress2 = cef_custom_c6address_2a,cef_custom_c6address_2b
+# REPORT-23_CustomAddress3 = cef_custom_c6address_3a,cef_custom_c6address_3b
+# REPORT-24_CustomAddress4 = cef_custom_c6address_4a,cef_custom_c6address_4b
+# REPORT-25_FlexDate1 = cef_custom_flexdate_1a,cef_custom_flexdate_1b
+# REPORT-26_FlexDate2 = cef_custom_flexdate_2a,cef_custom_flexdate_2b
+# REPORT-27_DeviceCustomDate1 = cef_custom_devicedate_1a,cef_custom_devicedate_1b
+# REPORT-28_DeviceCustomDate2 = cef_custom_devicedate_2a,cef_custom_devicedate_2b
+# REPORT-29_CustomNumber1 = cef_custom_number_1a,cef_custom_number_1b
+# REPORT-30_CustomNumber2 = cef_custom_number_2a,cef_custom_number_2b
+# REPORT-31_CustomNumber3 = cef_custom_number_3a,cef_custom_number_3b
+# REPORT-32_CustomNumber4 = cef_custom_number_4a,cef_custom_number_4b
+# REPORT-33_CustomFloatPoint1 = cef_custom_floatpoint_1a,cef_custom_floatpoint_1b
+# REPORT-34_CustomFloatPoint2 = cef_custom_floatpoint_2a,cef_custom_floatpoint_2b
+# REPORT-35_CustomFloatPoint3 = cef_custom_floatpoint_3a,cef_custom_floatpoint_3b
+# REPORT-36_CustomFloatPoint4 = cef_custom_floatpoint_4a,cef_custom_floatpoint_4b

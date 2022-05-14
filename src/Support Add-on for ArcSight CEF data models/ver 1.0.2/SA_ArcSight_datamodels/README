@@ -1,0 +1,77 @@
+1. Introduction
+
+This Splunk Support Add-on (SA) is designed to extend the usability of the official Splunk app for CEF, and reduce the complexities of the procedures when exporting the data. 
+
+In the current version of the Splunk CEF app, it provides the mechnism to export the raw log data from Splunk, convert to CEF format and forward to HP ArcSight applicances. However, it does not has the solided frameworks which allows the users to map the Splunk fields to ArcSight CEF fields easily. The end users need to have throughly understandings on both Splunk and ArcSight products to manage them correctly.
+
+Although Splunk strongly recommends using the Splunk CIM data models wherever possible, the ArcSight CEF fields and Splunk CIM fields are not fully compatible each others, especially some of them have the same field names on both but with differnt concepts and content definitions (e.g., app, version, severity, signature_id, type, etc.)
+
+With this support add-on, the end users simply need to perform the field extractions and normalizations based on the ArcSight CEF standards, without translating between Splunk CIM and ArcSight CEF.
+
+
+2. Features
+
+The designs and implementations follows the ArcSight CEF standard. The current version of the SA is compatible with the latest version of ArcSight CEF (version 24, released August 22, 2017,  https://community.saas.hpe.com/t5/ArcSight-Connectors/ArcSight-Common-Event-Format-CEF-Guide/ta-p/1589306) 
+
+The implementations of the SA is based on the recent data model features which are introduced in Splunk Enterprise version 6.5.x and above. 
+
+By default, all the standard ArcSight CEF fields have been pre-defined in the root event object. As the current version of the Splunk CEF app only allows the certain amount of fields to be exported, there is additional root search object defined in the data model. The search object based on the root event object but it filters out the CEF fields which are unable to be exported by the current version Splunk CEF app. The filter lists can be changed easily later when the Splunk CEF app extends the amount of the exportable CEF fields. 
+
+This app also including the error handling and consistency check features, which allow to:
+ - check and validate the correct data formats and values, (e.g., the IPv4/IPv6 addresses, the MAC address, the valid int and string values, etc);
+ - dependency checks on the CEF custom streams and the corresponding labels;
+ - provides the default vaules to the fields on the desired event data from specified hosts/indexes/sourcetypes dynamically.
+
+
+3. System Requirements
+
+Currently, the SA is supported under Splunk Enterprise version 6.5.x and 6.6.x with the official Splunk App for CEF(https://splunkbase.splunk.com/app/1847/). 
+
+No dependency on the backend operating systems. 
+
+
+
+4. Installation and Configurations
+
+As this SA is the additional extensions of the Splunk App for CEF, it needs to be deployed on the same Splunk search head nodes where the Splunk app for CEF is deployed and configured.  
+
+The installation of this SA follows the standard Splunk app installation procedure, and there is not additional post-configuration step required for the SA itself. However, you will need the additional configurations prior to the data exports which we will discuss in the next section.
+
+
+5. How to Use
+
+5.1 Default configurations
+
+By default, the SA will search against all the non-internal indexes expected the indexes for Splunk Enterprise Security app. If you would like to change the search scope, you should modify the macro "load_cef_source_data_custom" and define your own search strings. Then you will need to modify the macro "load_cef_source_data" and change the string from "`load_cef_source_data(default)`" to "`load_cef_source_data(custom)`". This will automatically applied the data models in this SA.
+
+You might also want to change the default field outputs and give the default values to some of the event log data or the entire log data.  If you want to give the default values to every single log entries to be exported, you can simple modify the lookup table "cef_field_default_values.csv" and change the value of "hasDefaultValue" from 0 to 1.  If you only want to have the default values to the logs of certain indexes/sourcetypes/hosts, you can insert the conditions before the last wildcard row. You can use the wildcards for the indexes, sourcetypes, or the hosts in the lookup tables. 
+
+NOTES that you should always put the wildcard line "*,*,*,0" at the end of the lookup table.
+
+
+5.2 Field extractions and data normalizations
+
+You should perform field extractions on your own log data before the SA can normalize the fields and prepare for the exports. The CEF field extractions should follow the HPE ArcSight CEF doucmentation (https://community.saas.hpe.com/t5/ArcSight-Connectors/ArcSight-Common-Event-Format-CEF-Guide/ta-p/1589306).
+
+In order to avoid the field name conflicts between ArcSight CEF fields and Splunk CIM fields, you should have the prefix "cef_" append to the CEF field name. For example, you should name the field "cef_app" when you extract for CEF field "app", "cef_severity" for CEF field "severity", etc.
+
+Once the field extractions are completed, you need to make sure they are exposed to the Splunk system so that they are visible and accessible to the Splunk CEF app. 
+
+You should also run the following command in the Splunk search app and verify the output data before going to the next stage:
+
+| datamodel ArcSight_CEF Splunk_To_ArcSight_CEF search | search <remaing_search_string>
+
+
+5.3 Custom data models for different CEF field combinations.
+
+Once you verify you log data, you can simply create the CEF output in the Splunk CEF app by selecting "ArcSight_CEF" in the data model dropdown menu and selecting "Splunk_To_ArcSight_CEF" in the dropdown menu of  the dataset objects. 
+
+In the screen of "Map Fields" of the Splunk CEF app, you can easily map the Data Model attributes to the output field names by following their name conversions.
+
+You can also create your owner data models on top of the existing data model object "ArcSight_CEF -> Splunk_To_ArcSight_CEF" by following the sample data model supplied in the SA and create your own list of CEF fields to be exported for each individual type of event logs.
+
+
+6. Contact
+
+If you have any questions or issues, please feel free to contact me via email (rockey@secretvisons.com).
+You can also check out the latest version on my GitHub repository: https://github.com/SecretVisons/Splunk_ArcSight

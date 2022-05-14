@@ -1,0 +1,13 @@
+Version: 			1.0.0
+Revision:			2.0
+Release Date: 			March 18, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		No
+Summary:
+This is the optional accessory for the Technology Add-on for ArcSight CEF data inputs. The utility is meant to be deployed on the Splunk heavy forwarders, Splunk indexer nodes (if there are CEF data streams directly reaching the indexer nodes), or used in all-in-one instances (primarily in develop environments).
+In this revision, 
+- the revised Splunk utility does not support the legacy version of Splunk (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data consistency and application reliability issue;

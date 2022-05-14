@@ -1,0 +1,32 @@
+1. Introduction
+
+The Support Add-On (SA) is designed to help the uses easily parse the CEF data streams and extract the documented standard fields (version 24, released August 22, 2017,  https://community.saas.hpe.com/t5/ArcSight-Connectors/ArcSight-Common-Event-Format-CEF-Guide/ta-p/1589306)
+
+This SA can be deployed on the Splunk heavy forwarders and indexer nodes if the log source renaming function is required. It can also be deployed on the Splunk search heads for the field extractions.
+
+
+
+2. Installations
+
+This Support Add-On (SA) follows the same installation procedures as the others Splunk apps/add-ons. 
+
+
+3. Limitations
+
+Due the complexities of the ArcSight CEF event logs, this SA is only focus on the standard CEF fields which are documented. 
+
+4. Usages
+
+4.1 Splunk Heavy Forwarders/Indexer Nodes
+
+If the SA is meant to be deployed on the Splunk heavy forwarders or the indexer nodes for the log source renaming, you will need to modify the data input configurations and set the sourcetype name of the ArcSight CEF incoming data streams to "cef_data_stream" in order to trigger the source renaming.
+
+4.2 Splunk Search Heads
+
+If the SA is deployed on the search heads and the incoming ArcSight CEF data streams weren't renamed before the data ingestion, you will need to modify the stanza name and add the desired source names into the props.conf.
+
+
+5. Contact
+
+If you have any questions or issues, please feel free to contact me via email (rockey@secretvisons.com).
+You can also check out the latest version on my GitHub repository: https://github.com/SecretVisons/TA-ArcSightCEF_datainputs

@@ -1,0 +1,44 @@
+Version: 					2.0.2
+Release Date:				May 20, 2018
+Supported Splunk versions:	Splunk version 6.5.x, 6.6.x, 7.0.x, 7.1.x
+Splunk Cloud support:		Community Support
+Summary:
+This is the minor version upgrade of the Splunk support add-on from pervious
+version. The new version is based on the ArcSight CEF version 25 (released 
+September 28, 2017) with some new features.
+
+In this version:
+-  Rename the display name to compliance with the Splunk base app naming convention standards
+-  Add the new function which allow the dynamic field extractions form the random 
+      additional fields (ad.randomFieldNameWithSpecialCharacters);
+-  Minor updates on the regex in the transforms.conf to make the field extractions more
+      consistent;
+-  Enable the field alias of the full names for the ArcSight CEF fields' key names by 
+      default;
+-  Simplify the props.conf to be suitable for various deployment situations with minimal 
+      time and effort of modifications and customizations;
+-  Packaging with the Splunk packaging toolkit with the app.manifest file;
+-  Removed the functions of the index time log source renaming;
+-  Removed the function calls from the default/props.conf file, which merge two fields' values
+      and form the new fields. The functions are still available in the default/transforms.conf
+      file, and the users can manually call them out when needed.
+-  Removed the additional field aliases which start with the prefix "cef_";
+-  Update the relevant documents.
+
+=================================================================================
+
+Version: 					2.0.2
+Revision:					2.0
+Release Date: 				March 17, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		Community Support
+Summary:
+
+In this revision, 
+- the revised Splunk support add-on does not support the legacy version of Splunk 
+  (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data 
+  consistency and application reliability issue;

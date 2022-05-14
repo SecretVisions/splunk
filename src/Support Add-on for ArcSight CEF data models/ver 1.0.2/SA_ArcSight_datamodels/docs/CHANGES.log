@@ -1,0 +1,13 @@
+Version: 			1.0.0
+Revision:			2.0
+Release Date: 			March 17, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		No
+Summary:
+Provides a mechanism for field name mappings when exporting raw log data from Splunk in CEF format. The support add-on is meant to be deployed on the Splunk search head nodes (in deistributed deployment), or used in all-in-one instances (primarily in develop environments).
+In this revision, 
+- the revised Splunk support add-on does not support the legacy version of Splunk (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data consistency and application reliability issue;

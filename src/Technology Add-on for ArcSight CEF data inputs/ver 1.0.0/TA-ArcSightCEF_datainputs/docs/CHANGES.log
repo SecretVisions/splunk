@@ -1,0 +1,15 @@
+Version: 					1.0.0
+Revision:					2.0
+Release Date: 				March 17, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		No
+Summary:
+This is the initial version of the Splunk support add-on which is based on 
+the ArcSight CEF version 24 (released August 22, 2017). 
+
+In this revision, 
+- the revised Splunk support add-on does not support the legacy version of Splunk (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data consistency and application reliability issue;

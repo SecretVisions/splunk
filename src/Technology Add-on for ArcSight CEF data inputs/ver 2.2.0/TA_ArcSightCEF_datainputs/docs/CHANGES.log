@@ -1,0 +1,39 @@
+Version: 						2.2.0
+Release Date:					May 31, 2018
+Supported Splunk versions:		Splunk version 7.0.x, 7.1.x
+Incompatible Splunk versions:   Splunk version 6.5.x, 6.6.x
+Splunk Cloud support:			Community Support
+Summary:
+This is the major version upgrade of the Splunk support add-on from pervious
+version. This version has identical features and functions as the version 2.0.3.
+However, this version is based on the regex modulars which are not compatible with 
+old versions of Splunk (version 6.5.x, 6.6.x). The version is based on the ArcSight 
+CEF version 25 (released September 28, 2017).
+
+In this version:
+-  Renamed the id from Splunk_SA_cefinput to TA-ArcSightCEF_datainputs
+-  Renamed the stanzas in transforms.conf with the prefix "c_" which "c" stands for community
+     versions. This will avoid the potential conflicts from the official versions of Splunk 
+     ArcSight apps and add-ons.
+-  Redesigned the field extractions for the standard CEF fields
+-  Added a few new non standard CEF fields
+-  Added the non standard CEF fields with multiple values
+-  Update the relevant documents.
+
+=================================================================================
+
+Version: 					2.2.0
+Revision:					2.0
+Release Date: 				March 17, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		Community Support
+Summary:
+
+In this revision, 
+- the revised Splunk support add-on does not support the legacy version of Splunk 
+  (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data 
+  consistency and application reliability issue;

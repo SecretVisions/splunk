@@ -1,0 +1,36 @@
+Version: 						2.1.0
+Release Date:					May 20, 2018
+Supported Splunk versions:		Splunk version 7.0.x, 7.1.x
+Incompatible Splunk versions:   Splunk version 6.5.x, 6.6.x
+Splunk Cloud support:			Community Support
+Summary:
+This is the major version upgrade of the Splunk support add-on from pervious
+version. This version has identical features and functions as the version 2.0.2.
+However, in this version, the field extraction functions are switch to use the 
+modular regexes, it is no longer compatible with old versions of Splunk (version 
+6.5.x, 6.6.x). The version is based on the ArcSight CEF version 25 (released 
+September 28, 2017).
+
+In this version:
+-  Switch to use REGEX modulars in the default/transforms.conf file for the field
+      extraction functions, which makes it easier to manage and the results more
+      consistent;
+-  Update the relevant documents.
+
+=================================================================================
+
+Version: 					2.1.0
+Revision:					2.0
+Release Date: 				March 17, 2019
+Supported Splunk versions:	Splunk version 7.0.x, 7.1.x, 7.2.x
+Splunk Cloud support:		Community Support
+Summary:
+
+In this revision, 
+- the revised Splunk support add-on does not support the legacy version of Splunk 
+  (version 6.x and below);
+- update the location of the reference and documentation location;
+- Remove the trademark of HP since ArcSight has been sold to Micro Focus by HPE;
+- Update the logos of the app;
+- Update the app.manifest and make the explicit denial of the apps which have data 
+  consistency and application reliability issue;

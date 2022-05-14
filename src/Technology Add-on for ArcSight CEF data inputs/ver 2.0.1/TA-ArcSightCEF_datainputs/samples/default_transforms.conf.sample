@@ -1,0 +1,105 @@
+#
+# Section #1. The following section contains the configurations of the index time
+#          log source renaming functions. This configuration is optional and it is
+#          meant to be deployed on the Splunk heavy forwarders, indexer nodes, or 
+#		   all-in-one standalone instances.    
+#
+[rename_cef_source]
+DEST_KEY = MetaData:Source
+REGEX = CEF\:+[0-9]{1,}+\|
+FORMAT = source::ArcSight://CEF_Data_Stream
+
+#
+# Section #2. The following section contains all the mandatory configurations for 
+#          the search time field extractions which are used on the Splunk search 
+#		   heads and all-in-one standalone instances. They are not required by the 
+#		   Splunk heavy forwarders nor Splunk indexer nodes.
+#
+
+#
+# Field extractions from the heads of the CEF format logs. This stanza will extract
+#          the mandatory fields of the CEF logs, including version, dvc_product, 
+#          dvc_vendor, dvc_version, name, deviceEventClassId, severity.
+#
+
+#
+# The following stanza is used to cover the majority known CEF heads, including the
+#          Microsoft SQL Action Audit group logs in Windows Event Logs and processed
+#          by the Windows connectors or flex connectors.
+#
+[cef_header_fields]
+#
+# The following REGEX is compatible with the Microsoft SQL Action Audit group logs in CEF format.
+# It provides better compatibilities of log formats than the second REGEX. 
+# This REGEX is enabled by default and it's not recommended to be disabled and swith to the other one.
+#
+REGEX = CEF\:+(?<version>[0-9]{1,})[\|](?<dvc_vendor>[^\|]{0,})[\|](?<dvc_product>[^\|]{0,})[\|](?<dvc_version>[^\|]{0,})[\|](?<deviceEventClassId>(([^(\\\|)]{1,}[\\]{1}[\|]{1}){1,}[^\|]{1,}|[^\|]{0,}))[\|](?<name>(([^(\\\|)]{1,}[\\]{1}[\|]{1}){1,}[^\|]{1,}|[^\|]{0,}))[\|](?<severity>[^\|]{1,}|)[\|]+.*
+#
+# The following REGEX is not compatible with the Microsoft SQL Action Audit group logs in CEF format.
+# If you are confident that you do not and will not have the CEF format Microsoft SQL Action Audit group logs
+#    in you Splunk environment, you can disable the REGEX above and enable the REGEX below for fast speed.
+#
+# REGEX = CEF\:+(?<version>[0-9]{1,})[\|](?<dvc_vendor>[^\|]{0,})[\|](?<dvc_product>[^\|]{0,})[\|](?<dvc_version>[^\|]{0,})[\|](?<deviceEventClassId>(([^(\\\|)]{1,}[\\]{1}[\|]{1}){1,}[^\|]{1,}|[^\|]{0,}))[\|](?<name>([^\|]{0,}))[\|](?<severity>[^\|]{1,}|)[\|]+.*
+
+#
+# The following sections are the configurations which are used to extract the standard
+#          CEF fields from the event logs.
+#
+
+#
+# The following stanzas are used to perform field extractions for those fields which 
+#          contains the long values and white spaces.
+#
+[cef_extended_fields_producers_1]
+REGEX = (?m)(act|app|cat|c6a[1-4]{1}Label|cfp[1-4]{1}Label|cn[1-4]{1}Label|cs[1-6]{1}Label|destinationDnsDomain|destinationServiceName|destinationTranslatedAddress|deviceCustomDate[1-2]{1}|deviceCustomDate[1-2]{1}Label|deviceDnsDomain|deviceFacility|deviceInboundInterface|deviceNtDomain|deviceOutboundInterface|devicePayloadId|deviceProcessName|deviceTranslatedAddress|dhost|dmac|dntdom|dpriv|dproc|dtz|duid|duser|end|fileCreateTime|fileHash|fileId|fileModificationTime|filePath|filePermission|fileType|flexDate[1-2]{1}|flexDate[1-2]{1}Label|flexString[1-4]{1}Label|fname|msg|oldFileCreateTime|oldFileHash|oldFileModificationTime|oldFileName|oldFilePath|oldFilePermission|oldFileType|proto|reason|request|requestClientApplication|requestContext|requestCookies|requestMethod|rt|sntdom|sourceDnsDomain|sourceServiceName|sourceTranslatedAddress|spriv|sproc|start|suid|suser)[\=]([^\=\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+[cef_extended_fields_consumers_1]
+REGEX = (?m)(agentDnsDomain|agentNtDomain|agentTranslatedAddress|agentZoneURI|agentTranslatedZoneURI|agt|ahost|amac|art|at|atz|destinationTranslatedZoneURI|destinationZoneURI|deviceTranslatedZoneURI|dlat|dlong|deviceZoneURI|rawEvent|sourceTranslatedZoneURI|sourceZoneURI|slat|slong)[\=]([^\=\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+#
+# The following stanzas are used to extract the fields without the white spaces.
+#
+[cef_extended_fields_producers_2]
+REGEX = (?m)(c6a[1-4]{1}|cfp[1-4]{1}|cn[1-4]{1}|cnt|destinationTranslatedPort|deviceDirection|deviceExternalId|dpid|dpt|dst|dvc|dvchost|dvcmac|dvcpid|externalId|fsize|in|oldFileId|oldFileSize|out|outcome|shost|smac|sourceTranslatedPort|spid|spt|src|type)[\=]([^\s\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+[cef_extended_fields_consumers_2]
+REGEX = (?m)(agentTranslatedZoneExternalID|agentZoneExternalID|aid|av|customerExternalID|customerURI|destinationTranslatedZoneExternalID|destinationZoneExternalID|deviceTranslatedZoneExternalID|deviceZoneExternalID|eventId|sourceTranslatedZoneExternalID|sourceZoneExternalID)[\=]([^\s\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+#
+# This stanza is used to extract the custom string fields and flex string fields which
+#          contain long values, white spaces and structures similar to HTML/XML.
+#
+[cef_extended_fields_producers_3]
+REGEX = (?m)(cs[1-6]{1}|flexString[1-4]{1})[\=](\<[^\>]{1,}\>|[^\=\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+
+#
+# The following stanzas are used to perform the additional non-standard field extractions, including:
+#           - the fields which are not commonly acrossed the main ArcSight ingest platforms (ESM, loggers, Investigator)
+#           - the additional ad.someFieldNameHere such as ad.WindowFamily, ad.Key[0], etc.
+#
+[cef_extended_fields_extract_1]
+REGEX = (?m)(catdt|categorySignificance|categoryBehavior|categoryDeviceGroup|categoryTechnique|categoryOutcome|categoryObject|cefVer|deviceSeverity|eventAnnotationStageUpdateTime|eventAnnotationModificationTime|eventAnnotationAuditTrail|eventAnnotationVersion|eventAnnotationFlags|eventAnnotationEndTime|eventAnnotationManagerReceiptTime)[\=]([^\=\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+[cef_extended_fields_extract_2]
+REGEX = (?m)(ad\.[A-Za-z0-9]{1,})[\=]([^\=\r\n]{1,})[\s\r\n]
+FORMAT = $1::$2
+MV_ADD = false
+
+[cef_extended_fields_extract_3]
+REGEX = (?m)(ad\.Key\[[0-9]{1,}\])[\=]([^\=\r\n]{1,})(?:[\s\r\n]|$)
+FORMAT = $1::$2
+MV_ADD = false
+
